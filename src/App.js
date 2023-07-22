@@ -1,25 +1,24 @@
-import logo from './logo.svg';
+// import { auth } from './api/firebaseConfig';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import Welcome from '../src/components/Welcome.js';
+import NavBar from '../src/components/NavBar.js';
+import ChatBox from '../src/components/ChatBox.js';
+
 import './App.css';
+import { useState } from 'react';
+
 
 function App() {
+  const auth = getAuth();
+
+  const [user] = useAuthState(auth);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar />
+      {!user ? <Welcome /> : <ChatBox />}
     </div>
   );
 }
-
 export default App;
